@@ -129,4 +129,6 @@ def makeList(li: list, name: str):
 
 
 makeObject(object, outer_name)
-copy_to_clipboard(target_result.rstrip())
+
+if copy_clipboard:
+    copy_to_clipboard(target_result.rstrip())
