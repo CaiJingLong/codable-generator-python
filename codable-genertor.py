@@ -8,6 +8,12 @@ src_path = 'src.json'
 type_src = "class"
 outer_name = 'Resp'
 
+if argv.__contains__("-h"):
+    print("-f [json-filename]")
+    print("-o [class/or struct name]")
+    print("-t [class/struct]")
+    exit()
+
 for arg in argv:
     index = argv.index(arg)
     if type(arg) is str:
