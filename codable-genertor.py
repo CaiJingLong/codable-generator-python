@@ -1,4 +1,5 @@
 import json
+import subprocess
 
 import sys
 
@@ -7,11 +8,15 @@ argv = sys.argv
 src_path = 'src.json'
 type_src = "class"
 outer_name = 'Resp'
+show_in_console = True
+copy_clipboard = False
 
 if argv.__contains__("-h"):
     print("-f [json-filename] default is src.json")
     print("-o [class/or struct name] default class")
     print("-t [class/struct] default Resp")
+    print("-np noshow text in term")
+    print("-c copy text in clipboard")
     exit()
 
 for arg in argv:
@@ -26,6 +31,14 @@ for arg in argv:
 
         if a.startswith("-o"):
             outer_name = argv[index + 1]
+
+        if a.startswith("-np"):
+            show_in_console = True
+            pass
+
+        if a.startswith("-c"):
+            copy_clipboard = True
+            pass
 
 # type
 # type_src = "struct"
@@ -83,8 +96,17 @@ def makeObject(map: dict, class_name: str = "Resp"):
         result += "\n"
     result += "\n}"
 
-    print(result)
+    if show_in_console:
+        print(result)
+
+    if copy_clipboard:
+        copy_to_clipboard(result)
     return class_name
+
+
+def copy_to_clipboard(txt):
+    p1 = subprocess.Popen(["echo", txt], stdout=subprocess.PIPE)
+    subprocess.Popen(["pbcopy"], stdin=p1.stdout)
 
 
 def first_upper(value: str):
