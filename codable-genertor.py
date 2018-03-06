@@ -9,9 +9,9 @@ type_src = "class"
 outer_name = 'Resp'
 
 if argv.__contains__("-h"):
-    print("-f [json-filename]")
-    print("-o [class/or struct name]")
-    print("-t [class/struct]")
+    print("-f [json-filename] default is src.json")
+    print("-o [class/or struct name] default class")
+    print("-t [class/struct] default Resp")
     exit()
 
 for arg in argv:
