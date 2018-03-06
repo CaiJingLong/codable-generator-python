@@ -35,3 +35,6 @@ struct Outer: Codable{
     -t struct/class
     -c copy to clipboard
     -np not print the text in console
+
+## LICENSE
+BSD v3
