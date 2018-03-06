@@ -15,9 +15,11 @@ if argv.__contains__("-h"):
     print("-f [json-filename] default is src.json")
     print("-o [class/or struct name] default class")
     print("-t [class/struct] default Resp")
-    print("-np noshow text in term")
+    print("-np no print text in term")
     print("-c copy text in clipboard")
     exit()
+
+target_result = ""
 
 for arg in argv:
     index = argv.index(arg)
@@ -70,6 +72,7 @@ class Field:
 
 
 def makeObject(map: dict, class_name: str = "Resp"):
+    global target_result
     class_name = class_name[0].upper() + class_name[1:]
     field_list = list()
     for key in map.keys():
@@ -88,7 +91,7 @@ def makeObject(map: dict, class_name: str = "Resp"):
         elif type(value) == float:
             field_list.append(Field(key, 'Float', 0.0))
 
-    result = "%s %s: Codable{\n\n" % (type_src, class_name)
+    result = "%s %s: Codable {\n\n" % (type_src, class_name)
     for f in field_list:
         result += "    var %s : %s" % (f.name, f.typeName)
         if show_default_value and f.defValue is not None:
@@ -100,7 +103,8 @@ def makeObject(map: dict, class_name: str = "Resp"):
         print(result)
 
     if copy_clipboard:
-        copy_to_clipboard(result)
+        target_result += result
+        target_result += "\n\n"
     return class_name
 
 
@@ -125,3 +129,4 @@ def makeList(li: list, name: str):
 
 
 makeObject(object, outer_name)
+copy_to_clipboard(target_result.rstrip())
