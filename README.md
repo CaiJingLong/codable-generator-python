@@ -32,4 +32,5 @@ struct Outer: Codable{
 -f pathname
 -o className
 -t struct/class
-
+-c copy to clipboard
+-np not print the text in console
